@@ -37,6 +37,7 @@ struct ContentView: View {
                 state = true
             }}
         if (state == true){
+            score += 1
             game[5*i+j] += 1
         }
         return state
@@ -102,11 +103,9 @@ struct ContentView: View {
                                     .onTapGesture {
                                         game[5*i+j] = nextNum
                                         var state:Bool = merge(i: i, j: j)
-                                        score += 1
                                         while(state)
                                         {
                                             state = merge(i: i, j: j)
-                                            score += 1
                                         }
                                         nextNum = Int.random(in: 1...3)
                                         if(endState() == true){
@@ -140,6 +139,7 @@ struct ContentView: View {
                     game[i] = 0
                 }
                 score = 0
+                nextNum = Int.random(in: 1...3)
             } label:{
                 ZStack{
                     
@@ -159,7 +159,7 @@ struct ContentView: View {
         }.alert(isPresented: $showAlert, content: {
             return Alert(
                 title: Text("Game Over!"),
-                message: Text("Your Score : \(score) \n Best Score : \(score)")
+                message: Text("Your Score : \(score) \n Best Score : \(bestScore)")
                 
             )
             
